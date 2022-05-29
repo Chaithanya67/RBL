@@ -9,31 +9,44 @@ def clustering(dataset_folder, dataset, window_size=10, hash_module=1024, thresh
 	pages = pages[:input_limit]
 
 	logger = Logger.get_instance()
-	logger.print('############### INIZIO PASSO 1 ####################', 1)
+	logger.print('############### INITIALIZE PASS 1 ####################', 1)
 	hash_table = {}
 	algoritmo = Algoritmo()
-	hash_table = algoritmo.passo1(pages, window_size, hash_module)
+	hash_table = algoritmo.pass1(pages, window_size, hash_module)
 
-	logger.print('############### FINE PASSO 1 ####################', 1)
+	logger.print('############### FINE PASS 1 ####################', 1)
 	logger.print(hash_table, 3)
 
-	logger.print('############### INIZIO PASSO 2 ####################', 1)
-	hash_table = algoritmo.passo2(hash_table, threshold)
+	logger.print('############### INITIALIZE PASS 2 ####################', 1)
+	hash_table = algoritmo.pass2(hash_table, threshold)
 
 
-	## TODO: testing passo1
-	## TODO: testing passo2
-	## TODO: testing passo3
+	## TODO: testing pass1
+	## TODO: testing pass2
+	## TODO: testing pass3
 	## TODO: da rivedere bene come fare gli hash che per ora sono fortemente dipendenti dal modulo che scegliamo, anche alla luce dei risultati che raggiungiamo
 
-	logger.print('############### FINE PASSO 2 ####################', 1)  
+	logger.print('############### FINE PASS 2 ####################', 1)  
 	logger.print(hash_table, 3)
 
-	logger.print('############### INIZIO PASSO 3 ####################', 1)
+	logger.print('############### INITIALIZE PASS 3 ####################', 1)
 	cluster ={}
-	cluster = algoritmo.passo3(hash_table, pages, hash_module, window_size)
+	cluster = algoritmo.pass3(hash_table, pages, hash_module, window_size)
 
-	logger.print('################ FINE PASSO 3 ####################', 1)
+	logger.print('################ FINE PASS 3 ####################', 1)
+	
+	logger.print('############### INITIALIZE PASS 4 ####################', 1)
+	cluster ={}
+	cluster = algoritmo.pass4(hash_table, pages, hash_module, window_size)
+
+	logger.print('################ FINE PASS 4 ####################', 1)
+	
+	logger.print('############### INITIALIZE PASS 5 ####################', 1)
+	cluster ={}
+	cluster = algoritmo.pass5(hash_table, pages, hash_module, window_size)
+
+	logger.print('################ FINE PASS 5 ####################', 1)
+	
 	logger.print('Numero cluster ' + str(len(cluster)), 2)
 	logger.print('\nClusters: \n', 2)
 	logger.print(cluster, 2)
